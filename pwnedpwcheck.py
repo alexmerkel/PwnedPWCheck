@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """PwnedPWCheck - Checks passwords against HIBP's Pwned Passwords list"""
 #
-# (c) 2018 Alex Merkel
+# (c) 2020 Alex Merkel
 # @alexandermerkel
 #
 # See LICENSE file
@@ -21,7 +21,7 @@ import colored
 # --------------------------------------------------------------------------- #
 # VERSION
 NAME = "PwnedPWCheck"
-VERSION = "0.1.0"
+VERSION = "0.2.0"
 # ########################################################################### #
 
 
@@ -110,7 +110,7 @@ def getPwnedHashes(hashedPW):
     """
     prefix = hashedPW[:PREFIXLENGTH]
     url = API + prefix
-    call = request.Request(url, headers={"User-Agent": NAME+'/'+VERSION})
+    call = request.Request(url, headers={"User-Agent": NAME+'/'+VERSION, "Add-Padding": "true"})
     return request.urlopen(call, timeout=5).read().decode('utf-8').split('\n')
 # ########################################################################### #
 
