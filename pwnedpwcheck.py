@@ -56,7 +56,7 @@ def main(pws):
             try:
                 pw = getpass.getpass(prompt="Password to check: ")
                 print(checkPW(pw))
-            except KeyboardInterrupt:
+            except (KeyboardInterrupt, EOFError):
                 print(BOLD+"\nGoodbye..."+RESET)
                 break
             except Exception:
@@ -74,7 +74,8 @@ def checkPW(pw):
         Answer string
     """
 
-    #print(RED+pw+RESET)
+    if not pw:
+        return "{}Please enter a password...{}".format(BOLD, RESET)
     pwHash = generateHash(pw)
     hashes = getPwnedHashes(pwHash)
     (result, number) = evalute(pwHash, hashes)
